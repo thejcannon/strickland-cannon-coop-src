@@ -1,0 +1,30 @@
+{
+  "name": "strickland-cannon-coop",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "export": "nuxt-ts export",
+    "serve": "nuxt-ts serve"
+  },
+  "dependencies": {
+    "@nuxt/typescript-runtime": "^0.4.10",
+    "@nuxtjs/axios": "^5.12.0",
+    "@types/chart.js": "^2.9.23",
+    "@types/lodash-es": "^4.17.3",
+    "@types/regression": "^2.0.0",
+    "chart.js": "2.9.3",
+    "decimal.js": "^10.2.0",
+    "lodash-es": "^4.17.15",
+    "nuxt": "^2.13.0",
+    "regression": "^2.0.1",
+    "vue-chartjs": "^3.5.0"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^1.0.3",
+    "@nuxtjs/vuetify": "^1.11.2",
+    "nuxt-purgecss": "^1.0.0"
+  }
+}
