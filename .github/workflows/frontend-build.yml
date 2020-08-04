@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: './src-repo'
+        path: ./src-repo
     - uses: actions/setup-node@v1
     - name: Install Dependencies
       run: yarn install
@@ -28,6 +28,7 @@ jobs:
       with:
         repository: thejcannon/strickland-cannon-coop
         path: ./docs-repo
+        token: ${{ secrets.DOCS_REPO_TOKEN }}
     - name: Wipe docs repo clean
       run: rm -rf ./docs-repo/*
     - name: Move generated docs into repo
@@ -35,7 +36,7 @@ jobs:
     - uses: EndBug/add-and-commit@v4
       with:
         add: '. -A'
-        cwd: './docs-repo'
+        cwd: ./docs-repo
         message: 'Build from ${{ env.GITHUB_SHA }}'
       env:
         GITHUB_TOKEN: ${{ secrets.DOCS_REPO_TOKEN }}
