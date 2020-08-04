@@ -1,0 +1,4 @@
+# TODO: Merge this into pyproject.toml when it is supported
+#       https://gitlab.com/pycqa/flake8/issues/428
+[flake8]
+max-line-length = 88
