@@ -36,6 +36,6 @@ jobs:
       with:
         add: '. -A'
         cwd: './docs-repo'
-        message: 'Build from ${{ GITHUB_SHA }}'
+        message: 'Build from ${{ env.GITHUB_SHA }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
