@@ -32,7 +32,9 @@ jobs:
     - name: Wipe docs repo clean
       run: rm -rf ./docs-repo/*
     - name: Move generated docs into repo
-      run: mv ./src-repo/frontend/dist/* ./docs-repo
+      run: |
+        shopt -s dotglob nullglob
+        mv ./src-repo/frontend/dist/*(D) ./docs-repo
     - uses: EndBug/add-and-commit@v4
       with:
         add: '. -A'
