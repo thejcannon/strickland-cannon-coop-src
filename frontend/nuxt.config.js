@@ -87,6 +87,7 @@ export default {
    ** See https://axios.nuxtjs.org/options.html
    */
   axios: {
+    prefix: "/strickland-cannon-coop/",
     port: process.env.NODE_ENV !== 'production' ? 8000 : undefined,
   },
   /*
