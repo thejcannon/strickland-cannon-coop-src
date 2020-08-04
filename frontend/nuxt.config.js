@@ -37,6 +37,9 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
+  router: {
+    base: '/strickland-cannon-coop/'
+  },
   plugins: [
     "~/plugins/axios.ts",
     "~/plugins/lodash.ts",
@@ -87,7 +90,7 @@ export default {
    ** See https://axios.nuxtjs.org/options.html
    */
   axios: {
-    prefix: "/strickland-cannon-coop/",
+    prefix: process.env.NODE_ENV !== 'production' ? '/' : "/strickland-cannon-coop/",
     port: process.env.NODE_ENV !== 'production' ? 8000 : undefined,
   },
   /*
