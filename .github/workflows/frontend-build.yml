@@ -34,7 +34,7 @@ jobs:
     - name: Move generated docs into repo
       run: |
         shopt -s dotglob nullglob
-        mv ./src-repo/frontend/dist/*(D) ./docs-repo
+        mv ./src-repo/frontend/dist/* ./docs-repo
     - uses: EndBug/add-and-commit@v4
       with:
         add: '. -A'
