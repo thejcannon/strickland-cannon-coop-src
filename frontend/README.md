@@ -1,4 +1,4 @@
-# strickland-cannon-coop
+# strickland-cannon-coop-src
 
 ## Build Setup
 
