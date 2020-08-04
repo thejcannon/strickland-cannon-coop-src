@@ -5,6 +5,7 @@ on:
     branches: [ master ]
     paths: [frontend/**, .github/workflows/fronted-build.yml]
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
