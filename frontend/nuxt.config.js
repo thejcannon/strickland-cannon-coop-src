@@ -57,7 +57,6 @@ export default {
   buildModules: [
     "@nuxt/typescript-build",
     "@nuxtjs/vuetify",
-    ["nuxt-purgecss", { mode: "webpack" }]
   ],
   /*
    ** Nuxt.js modules

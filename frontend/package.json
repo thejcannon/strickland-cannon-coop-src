@@ -26,7 +26,6 @@
   "devDependencies": {
     "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/vuetify": "^1.11.2",
-    "@types/openpgp": "^4.4.12",
-    "nuxt-purgecss": "^1.0.0"
+    "@types/openpgp": "^4.4.12"
   }
 }
