@@ -41,6 +41,6 @@ jobs:
       with:
         add: '. -A'
         cwd: ./docs-repo
-        message: 'Build from ${{ env.GITHUB_SHA }}'
+        message: 'Build from ${ GITHUB_SHA::8 }'
       env:
         GITHUB_TOKEN: ${{ secrets.DOCS_REPO_TOKEN }}
