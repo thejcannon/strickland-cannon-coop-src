@@ -19,12 +19,21 @@ class GPGJsonFile(object):
 
     def read(self):
         return json.loads(
-            str(_gpg.decrypt(self._path.read_text(), passphrase=GPG["passphrase"]))
+            str(
+                _gpg.decrypt(
+                    self._path.read_text(),
+                    passphrase=GPG["passphrase"],
+                    always_trust=True,
+                )
+            )
         )
 
     def write(self, obj):
         encrypt_result = _gpg.encrypt(
-            json.dumps(obj), recipients=GPG["recipient"], passphrase=GPG["passphrase"],
+            json.dumps(obj),
+            recipients=GPG["recipient"],
+            passphrase=GPG["passphrase"],
+            always_trust=True,
         )
         if not encrypt_result.ok:
             raise ValueError(f"Failed to encrypt: {encrypt_result.status}")
