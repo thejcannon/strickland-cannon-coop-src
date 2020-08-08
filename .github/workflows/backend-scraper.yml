@@ -21,7 +21,7 @@ jobs:
       env:
         GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-    - name: 
+    - name: Make settings file 
       run: 'echo "$PY_SETTINGS" > ./src-repo/backend/strickland_cannon_coop/settings.py'
       env:
         PY_SETTINGS: ${{ secrets.SETTINGS }}
@@ -32,7 +32,7 @@ jobs:
         python-version: 3.6
     - uses: Gr1N/setup-poetry@v2
     - name: Install Package
-      run: poetry run install
+      run: poetry install
       working-directory: ./src-repo/backend
     - name: 
       run: poetry run python -m strickland_cannon_coop.scripts
