@@ -21,9 +21,10 @@ jobs:
       env:
         GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-    - name: Create settings file
-      run: |
-        "${{ secrets.SETTINGS }}" > ./src-repo/backend/strickland_cannon_coop/settings.py
+    - name: 
+      run: 'echo "$PY_SETTINGS" > ./src-repo/backend/strickland_cannon_coop/settings.py'
+      env:
+        PY_SETTINGS: ${{ secrets.SETTINGS }}
 
     # Setup the scraper and scrape
     - uses: actions/setup-python@v1
