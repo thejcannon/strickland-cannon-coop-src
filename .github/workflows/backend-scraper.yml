@@ -18,10 +18,11 @@ jobs:
     - run: sudo apt install gnupg
     - name: Import GPG keys
       run: |
-        "${{ secrets.GPG_PUBLIC_KEY }}" > /temp/public.key
-        gpg --import /temp/public.key
-        "${{ secrets.GPG_PRIVATE_KEY }}" > /temp/private.key
-        gpg --import /temp/private.key
+        gpg --import "$GPG_PUBLIC_KEY"
+        gpg --import "GPG_PRIVATE_KEY"
+      env:
+        GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
+        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
     - name: Create settings file
       run: |
         "${{ secrets.SETTINGS }}" > ./src-repo/backend/strickland_cannon_coop/settings.py
