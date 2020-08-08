@@ -15,12 +15,6 @@ jobs:
         path: ./src-repo
 
     # Set up the prereqs
-    - run: sudo apt install gnupg
-    - name: Import GPG key
-      uses: crazy-max/ghaction-import-gpg@v2
-      env:
-        GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
-        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
     - name: Make settings file 
       run: 'echo "$PY_SETTINGS" > ./src-repo/backend/strickland_cannon_coop/settings.py'
       env:

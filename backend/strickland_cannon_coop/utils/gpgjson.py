@@ -3,9 +3,11 @@ import pathlib
 
 import gnupg
 
-from strickland_cannon_coop.settings import PASSPHRASE, RECIPIENT
+from strickland_cannon_coop.settings import GPG
 
 _gpg = gnupg.GPG()
+gpg.import_keys(GPG["public_key"])
+gpg.import_keys(GPG["private_key"])
 
 
 class GPGJsonFile(object):
@@ -16,17 +18,17 @@ class GPGJsonFile(object):
         return self._path.exists()
 
     def read(self):
-        print(f"TEXT IS: {self._path.read_text()}")
-
         return json.loads(
-            str(_gpg.decrypt(self._path.read_text(), passphrase=PASSPHRASE))
+            str(_gpg.decrypt(self._path.read_text(), passphrase=GPG["passphrase"]))
         )
 
     def write(self, obj):
         self._path.write_text(
             str(
                 _gpg.encrypt(
-                    json.dumps(obj), recipients=RECIPIENT, passphrase=PASSPHRASE
+                    json.dumps(obj),
+                    recipients=GPG["recipient"],
+                    passphrase=GPG["passphrase"],
                 )
             ).replace("\r\n", "\n")
         )
