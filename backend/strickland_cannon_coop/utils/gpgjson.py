@@ -6,8 +6,8 @@ import gnupg
 from strickland_cannon_coop.settings import GPG
 
 _gpg = gnupg.GPG()
-gpg.import_keys(GPG["public_key"])
-gpg.import_keys(GPG["private_key"])
+_gpg.import_keys(GPG["public_key"])
+_gpg.import_keys(GPG["private_key"])
 
 
 class GPGJsonFile(object):
