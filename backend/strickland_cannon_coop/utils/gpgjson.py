@@ -21,7 +21,7 @@ class GPGJsonFile(object):
         )
 
     def write(self, obj):
-        return self._path.write_text(
+        self._path.write_text(
             str(
                 _gpg.encrypt(
                     json.dumps(obj), recipients=RECIPIENT, passphrase=PASSPHRASE
