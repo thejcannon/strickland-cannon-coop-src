@@ -34,7 +34,7 @@ jobs:
     - name: Install Package
       run: poetry install
       working-directory: ./src-repo/backend
-    - name: 
+    - name:  Run the scraper
       run: poetry run python -m strickland_cannon_coop.scripts
       working-directory: ./src-repo/backend
 

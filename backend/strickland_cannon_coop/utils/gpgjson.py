@@ -28,3 +28,4 @@ class GPGJsonFile(object):
                 )
             ).replace("\r\n", "\n")
         )
+        print(self._path.read_text())
