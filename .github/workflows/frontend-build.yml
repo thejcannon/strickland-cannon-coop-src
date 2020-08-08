@@ -30,7 +30,9 @@ jobs:
         path: ./docs-repo
         token: ${{ secrets.DOCS_REPO_TOKEN }}
     - name: Wipe docs repo clean
-      run: rm -rf ./docs-repo/*
+      run: |
+        shopt -s extglob
+        rm -rf ./docs-repo/!(data/*)
     - name: Move generated docs into repo
       run: |
         shopt -s dotglob nullglob
