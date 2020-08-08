@@ -23,12 +23,9 @@ class GPGJsonFile(object):
         )
 
     def write(self, obj):
-        self._path.write_text(
-            str(
-                _gpg.encrypt(
-                    json.dumps(obj),
-                    recipients=GPG["recipient"],
-                    passphrase=GPG["passphrase"],
-                )
-            ).replace("\r\n", "\n")
+        encrypt_result = _gpg.encrypt(
+            json.dumps(obj), recipients=GPG["recipient"], passphrase=GPG["passphrase"],
         )
+        if not encrypt_result.ok:
+            raise ValueError(f"Failed to encrypt: {encrypt_result.status}")
+        self._path.write_text(str(encrypt_result).replace("\r\n", "\n"))
