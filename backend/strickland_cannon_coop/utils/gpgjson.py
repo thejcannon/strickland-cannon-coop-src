@@ -21,6 +21,9 @@ class GPGJsonFile(object):
         )
 
     def write(self, obj):
+        print(
+            _gpg.encrypt(json.dumps(obj), recipients=RECIPIENT, passphrase=PASSPHRASE)
+        )
         self._path.write_text(
             str(
                 _gpg.encrypt(
@@ -28,4 +31,3 @@ class GPGJsonFile(object):
                 )
             ).replace("\r\n", "\n")
         )
-        print(self._path.read_text())
