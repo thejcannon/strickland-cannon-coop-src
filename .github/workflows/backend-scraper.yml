@@ -18,8 +18,8 @@ jobs:
     - run: sudo apt install gnupg
     - name: Import the keys
       run: |
-        gpg --import ${{ secrets.GPG_PUBLIC_KEY }}
-        gpg --import ${{ secrets.GPG_PRIVATE_KEY }}
+        echo ${{ secrets.GPG_PUBLIC_KEY }} | gpg --import
+        echo ${{ secrets.GPG_PRIVATE_KEY }} | gpg --import
 
     # Setup the scraper and scrape
     - uses: actions/setup-python@v1
