@@ -1,0 +1,52 @@
+name: Backend Scraper
+
+on:
+  push:
+    branches: [ master ]
+    paths: [backend/**, .github/workflows/backend-scraper.yml]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        path: ./src-repo
+
+    # Set up the prereqs
+    - run: sudo apt install gnupg
+    - name: Import the keys
+      run: |
+        gpg --import ${{ GPG_PUBLIC_KEY }}
+        gpg --import ${{ GPG_PRIVATE_KEY }}
+
+    # Setup the scraper and scrape
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.6
+    - uses: Gr1N/setup-poetry@v2
+    - name: Install Package
+      run: poetry run install
+      working-directory: ./src-repo/backend
+    - name: 
+      run: poetry run python -m strickland_cannon_coop.scripts
+      working-directory: ./src-repo/backend
+
+    # Copy the data
+    - uses: actions/checkout@v2
+      with:
+        repository: thejcannon/strickland-cannon-coop
+        path: ./docs-repo
+        token: ${{ secrets.DOCS_REPO_TOKEN }}
+    - name: Wipe data from docs repo
+      run: rm -rf ./docs-repo/data/*.json
+    - name: Move generated data into repo
+      run: mv ./src-repo/data/*.json ./docs-repo/data
+    - uses: EndBug/add-and-commit@v4
+      with:
+        add: '. -A'
+        cwd: ./docs-repo
+        message: 'Build from ${ GITHUB_SHA::8 }'
+      env:
+        GITHUB_TOKEN: ${{ secrets.DOCS_REPO_TOKEN }}
