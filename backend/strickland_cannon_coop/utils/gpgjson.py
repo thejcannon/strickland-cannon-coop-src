@@ -16,14 +16,13 @@ class GPGJsonFile(object):
         return self._path.exists()
 
     def read(self):
+        print(f"TEXT IS: {self._path.read_text()}")
+
         return json.loads(
             str(_gpg.decrypt(self._path.read_text(), passphrase=PASSPHRASE))
         )
 
     def write(self, obj):
-        print(
-            _gpg.encrypt(json.dumps(obj), recipients=RECIPIENT, passphrase=PASSPHRASE)
-        )
         self._path.write_text(
             str(
                 _gpg.encrypt(

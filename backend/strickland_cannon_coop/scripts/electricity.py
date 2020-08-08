@@ -52,8 +52,6 @@ def _get_gpgjson_file():
     gpgjson_file = gpgjson.GPGJsonFile("../data/electricity.json")
     if not gpgjson_file.exists():
         gpgjson_file.write({"usageData": []})
-    else:
-        print(gpgjson_file._path.read_text())
 
     return gpgjson_file
 
