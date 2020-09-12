@@ -4,6 +4,8 @@ on:
   push:
     branches: [ master ]
     paths: [backend/**, .github/workflows/backend-scraper.yml]
+  schedule:
+    - cron: '0 5 * * *'
 
 jobs:
   build:
