@@ -1,0 +1,170 @@
+<template>
+  <TabbedCharts :charts="charts">
+    <div align="center" class="mt-auto pl-2">
+      <v-select
+        v-model="rollingMeanWidth"
+        :items="[1, 2, 3, 4, 5, 6, 7]"
+        label="Rolling Mean Units"
+        :style="{maxWidth:'100px'}"
+      ></v-select>
+    </div>
+  </TabbedCharts>
+</template>
+
+<script>
+export default {
+  props: {
+    usageData: {
+      type: Array,
+    },
+  },
+  data() {
+    return {
+      rollingMeanWidth: 1,
+      chartTypes: ["weekly", "monthly", "yearly"],
+    };
+  },
+  computed: {
+    charts() {
+      const options = {
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem, data) => {
+              return `${data.datasets[tooltipItem.datasetIndex].label}: ${
+                tooltipItem.yLabel
+              } gallons`;
+            },
+          },
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                suggestedMin: 0,
+                callback: (value) => value + " gallons",
+              },
+            },
+          ],
+        },
+      };
+      return this.chartTypes.map((key) => {
+        return {
+          key,
+          options,
+          data: {
+            labels: this[key].labels,
+            datasets: this[key].datasets.map((dataset) => ({
+              label: dataset.label,
+              data: this.$wrappingRollingMean(
+                dataset.data.map(([total, count]) => total / count),
+                this.rollingMeanWidth
+              ),
+            })),
+          },
+        };
+      });
+    },
+    weekly() {
+      const labels = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const values = new Array(7); // [total, count]
+      this.usageData.forEach(([date, usage]) => {
+        const [year, month, day] = date.split("-");
+
+        const index = new Date(
+          parseInt(year),
+          parseInt(month) - 1,
+          parseInt(day)
+        ).getDay();
+
+        if (values[index] === undefined) {
+          values[index] = [0.0, 0];
+        }
+        values[index][0] += usage;
+        ++values[index][1];
+      });
+      return {
+        labels,
+        datasets: [
+          {
+            label: `Water Usage`,
+            data: values.map(([total, count]) => [total, count]),
+          },
+        ],
+      };
+    },
+    monthly() {
+      const labels = this.$_.times(31, (num) => num + 1);
+      const values = new Array(31); // [total, count]
+      this.usageData.forEach(([date, usage]) => {
+        const [year, month, day] = date.split("-");
+
+        const index =
+          new Date(
+            parseInt(year),
+            parseInt(month) - 1,
+            parseInt(day)
+          ).getDate() - 1;
+
+        if (values[index] === undefined) {
+          values[index] = [0.0, 0];
+        }
+        values[index][0] += usage;
+        ++values[index][1];
+      });
+      return {
+        labels,
+        datasets: [
+          {
+            label: `Water Usage`,
+            data: values.map(([total, count]) => [total, count]),
+          },
+        ],
+      };
+    },
+    yearly() {
+      const labels = this.$_.times(365, (dateIndex) => {
+        const date = new Date(2019 /* non-leap year */, 0, dateIndex + 1);
+        return (
+          (date.getMonth() + 1).toString().padStart(2, "0") +
+          "-" +
+          date.getDate().toString().padStart(2, "0")
+        );
+      });
+      const values = new Array(365); // [total, count]
+      this.usageData.forEach(([date, usage]) => {
+        const [year, month, day] = date.split("-");
+
+        if (!(month === "02" && day === "29")) {
+          const index = Math.floor(
+            (new Date(2019, parseInt(month) - 1, parseInt(day)) -
+              new Date(2019, 0, 1)) /
+              (1000 * 60 * 60 * 24)
+          );
+          if (values[index] === undefined) {
+            values[index] = [0.0, 0];
+          }
+          values[index][0] += usage;
+          ++values[index][1];
+        }
+      });
+      return {
+        labels,
+        datasets: [
+          {
+            label: `Water Usage`,
+            data: values.map(([total, count]) => [total, count]),
+          },
+        ],
+      };
+    },
+  },
+};
+</script>

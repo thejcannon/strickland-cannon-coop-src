@@ -48,6 +48,11 @@ export default {
           icon: "mdi-home-lightbulb",
           title: "Electricty",
           to: "/electricity"
+        },
+        {
+          icon: "mdi-water",
+          title: "Water",
+          to: "/water"
         }
       ]
     };
