@@ -42,7 +42,9 @@ jobs:
     - name: Wipe data from docs repo
       run: rm -rf ./docs-repo/data/*.json
     - name: Move generated data into repo
-      run: mv ./src-repo/data/*.json ./docs-repo/data
+      run: |
+        mkdir ./docs-repo/data
+        mv ./src-repo/data/*.json ./docs-repo/data
 
     - uses: EndBug/add-and-commit@v4
       with:
