@@ -89,8 +89,7 @@ export default {
    ** See https://axios.nuxtjs.org/options.html
    */
   axios: {
-    prefix: process.env.NODE_ENV !== 'production' ? '/' : "/strickland-cannon-coop/",
-    port: process.env.NODE_ENV !== 'production' ? 8000 : undefined,
+    baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost:8000/' : '/strickland-cannon-coop/'
   },
   /*
    ** Build configuration
