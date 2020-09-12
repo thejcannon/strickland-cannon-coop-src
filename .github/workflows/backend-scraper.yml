@@ -26,9 +26,7 @@ jobs:
         path: ./docs-repo
         token: ${{ secrets.DOCS_REPO_TOKEN }}
     - name: Copy existing data
-      run: |
-        mkdir -p ./src-repo/data
-        mv ./docs-repo/data/*.json ./src-repo/data
+      run: mv ./docs-repo/data/*.json ./src-repo/data
 
     # Setup the scraper and scrape
     - uses: actions/setup-python@v1
