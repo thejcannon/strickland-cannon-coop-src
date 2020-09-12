@@ -27,7 +27,7 @@ jobs:
         token: ${{ secrets.DOCS_REPO_TOKEN }}
     - name: Copy existing data
       run: |
-        mkdir ./src-repo/data
+        mkdir -p ./src-repo/data
         mv ./docs-repo/data/*.json ./src-repo/data
 
     # Setup the scraper and scrape
@@ -47,7 +47,7 @@ jobs:
       run: rm -rf ./docs-repo/data/*.json
     - name: Move generated data into repo
       run: |
-        mkdir ./docs-repo/data
+        mkdir -p ./docs-repo/data
         mv ./src-repo/data/*.json ./docs-repo/data
 
     - uses: EndBug/add-and-commit@v4
