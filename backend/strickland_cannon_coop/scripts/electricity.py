@@ -7,6 +7,9 @@ import tqdm
 from strickland_cannon_coop.utils import gpgjson
 from strickland_cannon_coop.settings import ELECTRICITY, START_DATE
 
+# Silence the annoying warnings
+requests.packages.urllib3.disable_warnings()
+
 
 def _main(prev_results):
     usage_data = prev_results["usageData"]
