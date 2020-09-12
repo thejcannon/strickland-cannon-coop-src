@@ -20,6 +20,15 @@ jobs:
       run: 'echo "$PY_SETTINGS" > ./src-repo/backend/strickland_cannon_coop/settings.py'
       env:
         PY_SETTINGS: ${{ secrets.SETTINGS }}
+    - uses: actions/checkout@v2
+      with:
+        repository: thejcannon/strickland-cannon-coop
+        path: ./docs-repo
+        token: ${{ secrets.DOCS_REPO_TOKEN }}
+    - name: Copy existing data
+      run: |
+        mkdir ./src-repo/data
+        mv ./docs-repo/data/*.json ./src-repo/data
 
     # Setup the scraper and scrape
     - uses: actions/setup-python@v1
@@ -34,11 +43,6 @@ jobs:
       working-directory: ./src-repo/backend
 
     # Copy the data
-    - uses: actions/checkout@v2
-      with:
-        repository: thejcannon/strickland-cannon-coop
-        path: ./docs-repo
-        token: ${{ secrets.DOCS_REPO_TOKEN }}
     - name: Wipe data from docs repo
       run: rm -rf ./docs-repo/data/*.json
     - name: Move generated data into repo
