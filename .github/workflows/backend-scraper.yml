@@ -15,7 +15,8 @@ jobs:
         path: ./src-repo
 
     # Set up the prereqs
-    - name: Make settings file 
+    - uses: FranzDiebold/github-env-vars-action@v1.2.0
+    - name: Make settings file
       run: 'echo "$PY_SETTINGS" > ./src-repo/backend/strickland_cannon_coop/settings.py'
       env:
         PY_SETTINGS: ${{ secrets.SETTINGS }}
@@ -42,10 +43,11 @@ jobs:
       run: rm -rf ./docs-repo/data/*.json
     - name: Move generated data into repo
       run: mv ./src-repo/data/*.json ./docs-repo/data
+
     - uses: EndBug/add-and-commit@v4
       with:
         add: '. -A'
         cwd: ./docs-repo
-        message: 'Build from ${ GITHUB_SHA::8 }'
+        message: 'Build from $GITHUB_SHA_SHORT'
       env:
         GITHUB_TOKEN: ${{ secrets.DOCS_REPO_TOKEN }}
