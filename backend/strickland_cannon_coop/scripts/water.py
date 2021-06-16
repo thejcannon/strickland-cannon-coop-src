@@ -16,6 +16,7 @@ from strickland_cannon_coop.settings import WATER, START_DATE
 
 def _get_request_cookies(driver):
     driver.get("https://waterbilling.arlingtontx.gov/app/login.jsp")
+    driver.find_element_by_xpath('//*[@id="prefix-overlay-header"]/button').click()
     driver.find_element_by_id("accessCode").send_keys(WATER["username"])
     driver.find_element_by_id("password").send_keys(WATER["password"])
     driver.find_element_by_id("password").send_keys(Keys.RETURN)
