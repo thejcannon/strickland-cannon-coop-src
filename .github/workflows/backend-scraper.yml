@@ -34,7 +34,7 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: 3.6
-    - uses: Gr1N/setup-poetry@v2
+    - uses: Gr1N/setup-poetry@v4
     - name: Install Package
       run: poetry install
       working-directory: ./src-repo/backend
