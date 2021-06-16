@@ -17,7 +17,7 @@ jobs:
         path: ./src-repo
 
     # Set up the prereqs
-    - uses: FranzDiebold/github-env-vars-action@v1.2.0
+    - uses: FranzDiebold/github-env-vars-action@v2
     - name: Make settings file
       run: 'echo "$PY_SETTINGS" > ./src-repo/backend/strickland_cannon_coop/settings.py'
       env:
