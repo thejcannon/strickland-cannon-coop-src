@@ -34,7 +34,7 @@ jobs:
         run: |
           shopt -s extglob
           rm -rf !(data)
-          working-directory: ./src-repo/frontend
+        working-directory: ./src-repo/frontend
       - name: Move generated docs into repo
         run: |
           shopt -s dotglob nullglob
